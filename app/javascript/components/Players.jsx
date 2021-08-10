@@ -147,20 +147,29 @@ class Players extends React.Component {
 
     render() {
         return (
-            <div>
-                <CSVLink
-                    data={this.state.dataToDownload}
-                    target="_blank"
-                    filename="data.csv"
-                    onClick={(event, done) => {
-                        return this.download().then(() => {
-                            done();
-                        });
-                    }}
-                >
-                    Download CSV
-                </CSVLink>
-                <div style={{ margin: "2rem" }}>
+            <div style={{ margin: "2rem" }}>
+                <div class="d-flex flex-row justify-content-between">
+                    <h2>NFL Rushing Statistics</h2>
+                    <CSVLink
+                        data={this.state.dataToDownload}
+                        target="_blank"
+                        filename="player_data.csv"
+                        onClick={(event, done) => {
+                            return this.download().then(() => {
+                                done();
+                            });
+                        }}
+                    >
+                        <button
+                            type="button"
+                            className="btn btn-primary mb-1 ml-5"
+                        >
+                            Download CSV
+                        </button>
+                    </CSVLink>
+                </div>
+
+                <div>
                     <ReactTable
                         ref={(r) => (this.reactTable = r)}
                         data={this.state.tableProperties.allData}
