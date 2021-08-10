@@ -79,23 +79,23 @@ counter = 0
 data_hash.each do |item|
 	player_team = Team.where('abbreviation = ? or name = ?', item["Team"], teams[item["Team"].to_sym]).first_or_create(abbreviation: item["Team"], name: teams[item["Team"].to_sym])
 	player_position = Position.where('abbreviation = ? or name = ?', item["Pos"], positions[item["Pos"].to_sym]).first_or_create(abbreviation: item["Pos"], name: positions[item["Pos"].to_sym])
-	 Player.find_or_create_by!(name: item["Player"]) do |player|
-			player.name = item["Player"], 
-			player.team_id = player_team.id,
-			player.position_id = player_position.id ,
-			player.rushing_attempts = item["Att"],
-			player.rushing_attempts_per_game = item["Att/G"],
-			player.total_rushing_yards = item["Yds"],
-			player.average_rushing_yards_attempt = item["Avg"],
-			player.rushing_yards_per_game = item["Yds/G"],
-			player.total_rushing_touchdowns = item["TD"],
-			player.longest_rush = item["Lng"],
-			player.rushing_first_downs = item["1st"],
-			player.rushing_first_down_percentage = item["1st%"],
-			player.rushing_twenty_yards = item["20+"],
-			player.rushing_forty_yards = item["40+"],
-			player.rushing_fumbles = item["FUM"]
-		end
+	Player.create!(
+		name: item["Player"], 
+		team_id: player_team.id, 
+		position_id: player_position.id, 
+		rushing_attempts: item["Att"],
+		rushing_attempts_per_game: item["Att/G"],
+		total_rushing_yards: item["Yds"],
+		average_rushing_yards_attempt: item["Avg"],
+		rushing_yards_per_game: item["Yds/G"],
+		total_rushing_touchdowns: item["TD"],
+		longest_rush: item["Lng"],
+		rushing_first_downs: item["1st"],
+		rushing_first_down_percentage: item["1st%"],
+		rushing_twenty_yards: item["20+"],
+		rushing_forty_yards: item["40+"],
+		rushing_fumbles: item["FUM"]
+	)
 	counter += 1
 end
 
