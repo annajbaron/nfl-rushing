@@ -12,12 +12,12 @@ const columns = [
         accessor: "name",
     },
     {
-        Header: "Team ID",
-        accessor: "team_id",
+        Header: "Team",
+        accessor: "team.abbreviation",
     },
     {
-        Header: "Position ID",
-        accessor: "position_id",
+        Header: "Position",
+        accessor: "position.name",
     },
     {
         Header: "Rushing Attempts",
@@ -80,8 +80,8 @@ class Players extends React.Component {
             dataToDownload: [
                 [
                     "Name",
-                    "Team ID",
-                    "Position ID",
+                    "Team",
+                    "Position",
                     "Rushing attempts",
                     "Rushing Attempts Per Game",
                     "Total Rushing Yards",
@@ -120,8 +120,8 @@ class Players extends React.Component {
         var data_to_download = this.state.dataToDownload;
         const keys = [
             "name",
-            "team_id",
-            "position_id",
+            "team.abbreviation",
+            "position.name",
             "rushing_attempts",
             "rushing_attempts_per_game",
             "total_rushing_yards",
@@ -153,14 +153,14 @@ class Players extends React.Component {
                     target="_blank"
                     filename="data.csv"
                     onClick={(event, done) => {
-                        this.download().then(() => {
+                        return this.download().then(() => {
                             done();
                         });
                     }}
                 >
                     Download CSV
                 </CSVLink>
-                <div>
+                <div style={{ margin: "2rem" }}>
                     <ReactTable
                         ref={(r) => (this.reactTable = r)}
                         data={this.state.tableProperties.allData}

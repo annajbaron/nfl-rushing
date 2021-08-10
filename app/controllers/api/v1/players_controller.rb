@@ -1,7 +1,7 @@
 class Api::V1::PlayersController < ApplicationController
   def index
-    player = Player.all.order(created_at: :desc)
-    render json: player
+    @players = Player.all.order(created_at: :desc)
+    render json: @players.to_json(:include => [:team, :position])
   end
 
   def create
